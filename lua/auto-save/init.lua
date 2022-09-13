@@ -104,11 +104,11 @@ local save_func = (
 )
 
 local function perform_save()
-    local file_name = api.nvim_buf_get_name(0)
+    local file_name = fn.expand("<afile>:p")
     local disabled_patterns = cnf.opts.disabled_patterns
     if type(disabled_patterns) == "table" then
         for _, regex in ipairs(disabled_patterns) do
-            if string.match(file_name, regex) then
+            if file_name:match(regex) then
                 return
             end
         end
